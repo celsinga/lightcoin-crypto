@@ -3,7 +3,6 @@ class Account {
   constructor(username) {
     this.username = username;
     this.transactions = [];
-    // this.balance = 0;
   }
 
   get balance() {
@@ -26,7 +25,6 @@ class Transaction {
   }
 
   commit() {
-    // this.account.balance += this.value;
     this.time = new Date();
 
     this.account.addTransaction(this);
