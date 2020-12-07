@@ -2,7 +2,18 @@ class Account {
 
   constructor(username) {
     this.username = username;
-    this.balance = 0;
+    this.transactions = [];
+    // this.balance = 0;
+  }
+
+  get balance() {
+    for (let i = 0; i < this.transactions.length; i++) {
+      return (this.transactions[0].amount - this.transactions[1].amount);
+    }
+  }
+
+  addTransaction(transaction) {
+    this.transactions.push(transaction);
   }
 
 }
@@ -15,7 +26,10 @@ class Transaction {
   }
 
   commit() {
-    this.account.balance += this.value;
+    // this.account.balance += this.value;
+    this.time = new Date();
+
+    this.account.addTransaction(this);
   }
 
 }
@@ -36,11 +50,9 @@ class Withdrawal extends Transaction {
 
 }
 
-// DRIVER CODE BELOW
-
 const myAccount = new Account('billybob');
 
-console.log('Starting Balance:', myAccount.balance);
+console.log(`Starting Balance for ${myAccount.username}:`, myAccount.amount);
 
 const t1 = new Deposit(120.00, myAccount);
 t1.commit();
@@ -48,4 +60,4 @@ t1.commit();
 const t2 = new Withdrawal(50.00, myAccount);
 t2.commit();
 
-console.log('Ending Balance:', myAccount.balance);
+console.log(`Ending Balance for ${myAccount.username}:`, myAccount.balance);
